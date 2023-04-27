@@ -19,47 +19,38 @@ const App = () => {
       }
       let currentLocation = await Location.getCurrentPositionAsync({});
       setLocation(currentLocation);
-      // console.log(lat, long);
-      // return currentLocation;
-      // return;
-      // console.log(currentLocation.coords, "<----------Currrent Longitude");
-      // setLong(currentLocation.coords.longitude);
-      // setLat(currentLocation.coords.latitude);
+      setLong(currentLocation.coords.longitude);
+      setLat(currentLocation.coords.latitude);
     };
     getPermissions();
   }, []);
-  // console.log(currentLocation.coords, "<----------Currrent Longitude");
 
-  // const dynamicLocation = {
-  //   latitude: Location.coords.latitude,
-  //   longitude: Location.coords.longitude,
-  // };
   return (
     <View style={styles.container}>
-      <MapView
-        style={styles.maps}
-        initialRegion={{
-          latitude: 53.480759,
-          longitude: -2.242631,
-          latitudeDelta: 0.0622,
-          longitudeDelta: 0.0121,
-        }}
-      >
-        {/* <Marker coordinate={pin} /> */}
-      </MapView>
+      {lat && long &&
+        <MapView
+          style={styles.maps}
+          initialRegion={{
+            latitude: lat,
+            longitude: long,
+            latitudeDelta: 0.0622,
+            longitudeDelta: 0.0121,
+          }}
+        />
+      }
       <Text>Park Finder reminder is here!!</Text>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
   maps: {
     width: "100%",
-    // Dimensions.get("screen").width,
     height: "50%",
-    // Dimensions.get("screen").height,
   },
 });
+
 export default App;
